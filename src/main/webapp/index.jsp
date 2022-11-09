@@ -6,6 +6,11 @@
 <title>index</title>
 </head>
 <body>
-
+	<h1>INDEX</h1>
+	<ol>
+		<li><a href="<%=request.getContextPath()%>/dept/deptList.jsp">부서관리</a></li>
+		<li><a href="<%=request.getContextPath()%>/emp/empList.jsp">사원관리</a></li>
+		
+	</ol>
 </body>
 </html>
