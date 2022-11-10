@@ -2,6 +2,7 @@
 
 <!-- partial jsp 페이지 사용할 코드 -->
 		<a href="<%=request.getContextPath()%>/index.jsp">홈으로</a>
-		<a href="<%=request.getContextPath()%>/dept/deptList.jsp">부서관리</a>
-		<a href="<%=request.getContextPath()%>/empp/empList.jsp">부서관리</a>
-		<a href="<%=request.getContextPath()%>/">연봉관리</a>
+		<a href="<%=request.getContextPath()%>/dept/deptList.jsp">부서 관리</a>
+		<a href="<%=request.getContextPath()%>/empp/empList.jsp">부서 관리</a>
+		<a href="<%=request.getContextPath()%>/">연봉 관리</a>
+		<a href="<%=request.getContextPath()%>/board/boardList.jsp">게시판 관리</a>

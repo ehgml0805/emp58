@@ -19,7 +19,7 @@
 	if(row == 1) {
 		System.out.println("삭제성공");
 	} else {
-		System.out.println("삭제실패");//?? 실패 뜸
+		System.out.println("삭제실패");//
 	}
 	
 	//3.출력
