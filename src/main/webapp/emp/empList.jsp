@@ -48,22 +48,29 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+table{
+	background-color: #DAD9FF;
+}
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<div>
+	<div style=" text-align: center;">
 		<jsp:include page="/inc/menu.jsp"></jsp:include>
 		<!-- =request.getContextPath() 인클루드 안에 안 적음 -->
 	</div>
 
-	<h1>사원목록</h1>
+	<h1 style="text-align: center" >사원목록</h1>
 	<!-- 부서별 사원 목록 출력 되도록 -->
 
-	<div>
+	<div  style="text-align: center">
 		현재 페이지:<%=currentPage%></div>
 
-	<table border="1">
+	<table class="table table-bordered table-hover">
 		<tr>
 			<th>사원번호</th>
 			<th>퍼스트 네임</th>

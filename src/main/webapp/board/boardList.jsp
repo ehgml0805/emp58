@@ -14,12 +14,12 @@ if (request.getParameter("currentPage") != null) {
 }
 
 //2 처리 후 필요하다면 모델데이터를 생성
-final int ROW_PER_PAGE = 10;//finer을 붙이면 나중에 rowPerPage 변경 불가 10개씩 출력할 것
-int beginRow = (currentPage - 1) * ROW_PER_PAGE;//몇번부터 뽑을거냐?  Limit beginRow, ROW_PER_PAGE
-
 Class.forName("org.mariadb.jdbc.Driver");
 Connection conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/employees", "root", "java1234");
 
+//페이징 하기
+final int ROW_PER_PAGE = 10;//finer을 붙이면 나중에 rowPerPage 변경 불가 10개씩 출력할 것
+int beginRow = (currentPage - 1) * ROW_PER_PAGE;//몇번부터 뽑을거냐?  Limit beginRow, ROW_PER_PAGE
 String cntSql = "SELECT COUNT(*) cnt FROM board";
 PreparedStatement cntStmt = conn.prepareStatement(cntSql);
 ResultSet cntRs = cntStmt.executeQuery();
@@ -29,7 +29,7 @@ if (cntRs.next()) {
 }
 int lastPage = (int) Math.ceil((double) cnt / (double) ROW_PER_PAGE);// 마지막 페이지
 
-String listSql = "SELECT board_no boardNo, board_title boardTitle, board_content boardContent,board_writer boardWriter,createdate createDate FROM board ORDER BY board_no desc LIMIT ?,?";
+String listSql = "SELECT board_no boardNo, board_title boardTitle, board_content boardContent,board_writer boardWriter,createdate createDate FROM board ORDER BY board_no asc LIMIT ?,?";
 PreparedStatement listStmt = conn.prepareStatement(listSql);
 listStmt.setInt(1, beginRow);//몇번부터 뽑을거냐
 listStmt.setInt(2, ROW_PER_PAGE);//몇개씩 출력할거냐
