@@ -13,7 +13,7 @@ b.boardNo = Integer.parseInt(request.getParameter("boardNo"));
 //처리
 Class.forName("org.mariadb.jdbc.Driver");
 Connection conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/employees", "root", "java1234");
-System.out.println(conn + "<--conn");
+
 String sql = "SELECT board_title, board_content,board_writer,createdate FROM board WHERE board_no=?";
 PreparedStatement stmt = conn.prepareStatement(sql);
 stmt.setInt(1, b.boardNo);

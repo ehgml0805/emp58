@@ -19,7 +19,7 @@ Connection conn=DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/emplo
 System.out.println(conn + "<--conn");
 
 //쿼리 문자열 생성
-String sql="DELETE FROM comment WHERE comment_no=? AND comment_pw";
+String sql="DELETE FROM comment WHERE comment_no=? AND comment_pw;";
 //쿼리 세팅
 PreparedStatement stmt=conn.prepareStatement(sql);
 stmt.setString(1, commentNo);

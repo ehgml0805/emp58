@@ -16,6 +16,7 @@ if (request.getParameter("currentPage") != null) {
 //처리
 Class.forName("org.mariadb.jdbc.Driver");
 Connection conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/employees", "root", "java1234");
+System.out.print(conn);
 String sql = "SELECT board_title boardTitle, board_content boardContent,board_writer boardWriter,createdate FROM board WHERE board_no=?";
 PreparedStatement stmt = conn.prepareStatement(sql);
 stmt.setInt(1, boardNo);
@@ -30,10 +31,11 @@ if (rs.next()) {
 	board.createDate = rs.getString("createdate");
 }
 //댓글 페이징 하기
-int rowPerPage = 5;//5개만 나오게 보여줄거
+int rowPerPage = 5;//한페이지에 5개만 나오게 보여줄거
 int beginRow = (currentPage - 1) * rowPerPage;//몇번 부터 뽑아서 보여 줄거? 0번 째부터 보여줄거
-String cntSql = "SELECT COUNT(*) cnt FROM comment";//총 행 개수 쿼리가 아니라 board_no1에 있는 댓글 수 
+String cntSql = "SELECT COUNT(*) cnt FROM comment WHERE board_no=?; ";//총 행 개수 쿼리가 아니라 board_no1에 있는 댓글 수 
 PreparedStatement cntStmt = conn.prepareStatement(cntSql);
+cntStmt.setInt(1, board.boardNo);
 ResultSet cntRs = cntStmt.executeQuery();
 int cnt = 0;//전체 행의 개수
 if (cntRs.next()) {
@@ -146,26 +148,29 @@ while (commentRs.next()) {
 
 		<!-- 댓글 페이징 -->
 		<a
-			href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=1">처음
+			href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=board.boardNo%>&currentPage=1">처음
 		</a>
 
 		<%
 		if (currentPage > 1) {
 		%>
 		<a
-			href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage - 1%>">이전
+			href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=board.boardNo%>&currentPage=<%=currentPage - 1%>">이전
 		</a>
 		<%
 		}
+		%>
+			<span><%=currentPage%></span>
+		<%
 		if (currentPage < lastPage) {
 		%>
 		<a
-			href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage + 1%>">다음
+			href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=board.boardNo%>&currentPage=<%=currentPage + 1%>">다음
 		</a>
 		<%
 		}
 		%>
-		<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=lastPage%>">마지막
+		<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=board.boardNo%>&currentPage=<%=lastPage%>">마지막
 		</a>
 
 	</div>

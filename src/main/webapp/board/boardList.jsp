@@ -7,6 +7,8 @@
 
 <%
 //1 요청분석
+request.setCharacterEncoding("utf-8");
+String word = request.getParameter("word");
 
 int currentPage = 1;
 if (request.getParameter("currentPage") != null) {
@@ -16,23 +18,49 @@ if (request.getParameter("currentPage") != null) {
 //2 처리 후 필요하다면 모델데이터를 생성
 Class.forName("org.mariadb.jdbc.Driver");
 Connection conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/employees", "root", "java1234");
+System.out.println(conn + "<--conn");
 
 //페이징 하기
-final int ROW_PER_PAGE = 10;//finer을 붙이면 나중에 rowPerPage 변경 불가 10개씩 출력할 것
-int beginRow = (currentPage - 1) * ROW_PER_PAGE;//몇번부터 뽑을거냐?  Limit beginRow, ROW_PER_PAGE
-String cntSql = "SELECT COUNT(*) cnt FROM board";
-PreparedStatement cntStmt = conn.prepareStatement(cntSql);
+final int ROW_PER_PAGE = 10;//final을 붙이면 나중에 rowPerPage 변경 불가.. 10개씩 출력할 것
+int beginRow = (currentPage - 1) * ROW_PER_PAGE;//몇번부터 뽑을거냐?..  Limit beginRow, ROW_PER_PAGE
+
+String cntSql = null;
+PreparedStatement cntStmt = null;
+if (word == null) { //word 값이 없거나 공백이거나 하면 행 전체를 보여주고
+	cntSql = "SELECT COUNT(*) cnt FROM board; ";
+	cntStmt = conn.prepareStatement(cntSql);
+} else {
+	cntSql = "SELECT COUNT(*) cnt FROM board WHERE board_title LIKE ?;";
+	cntStmt = conn.prepareStatement(cntSql);
+	cntStmt.setString(1, "%" + word + "%");
+}
 ResultSet cntRs = cntStmt.executeQuery();
+
 int cnt = 0;//전체 행의 개수
 if (cntRs.next()) {
 	cnt = cntRs.getInt("cnt");
 }
-int lastPage = (int) Math.ceil((double) cnt / (double) ROW_PER_PAGE);// 마지막 페이지
+//전체 행의 마지막 페이지
+int lastPage = cnt / ROW_PER_PAGE;
+if(cnt%ROW_PER_PAGE!=0){
+	lastPage=lastPage+1;
+}
 
-String listSql = "SELECT board_no boardNo, board_title boardTitle, board_content boardContent,board_writer boardWriter,createdate createDate FROM board ORDER BY board_no asc LIMIT ?,?";
-PreparedStatement listStmt = conn.prepareStatement(listSql);
-listStmt.setInt(1, beginRow);//몇번부터 뽑을거냐
-listStmt.setInt(2, ROW_PER_PAGE);//몇개씩 출력할거냐
+
+String listSql = null;
+PreparedStatement listStmt = null;
+if (word == null) {
+	listSql = "SELECT board_no boardNo, board_title boardTitle, board_content boardContent,board_writer boardWriter,createdate createDate FROM board ORDER BY board_no asc LIMIT ?,? ;";
+	listStmt = conn.prepareStatement(listSql);
+	listStmt.setInt(1, beginRow);//몇번부터 뽑을거냐
+	listStmt.setInt(2, ROW_PER_PAGE);//몇개씩 출력할거냐
+} else {
+	listSql = "SELECT board_no boardNo, board_title boardTitle, board_content boardContent,board_writer boardWriter,createdate createDate FROM board WHERE board_title LIKE ?ORDER BY board_no asc LIMIT ?,?;";
+	listStmt = conn.prepareStatement(listSql);
+	listStmt.setString(1, "%" + word + "%");
+	listStmt.setInt(2, beginRow);//몇번부터 뽑을거냐
+	listStmt.setInt(3, ROW_PER_PAGE);//몇개씩 출력할거냐
+}
 ResultSet listRs = listStmt.executeQuery();
 
 ArrayList<Board> boardList = new ArrayList<Board>();
@@ -88,36 +116,67 @@ while (listRs.next()) {
 			%>
 		</tbody>
 	</table>
+
+	<!-- 내용 검색창 -->
+	<form method="post"
+		action="<%=request.getContextPath()%>/board/boardList.jsp">
+		<label> 내용 검색: </label> <input type="text" name="word" id="word">
+		<button type="submit">검색</button>
+	</form>
 	<div>
 		<a href="<%=request.getContextPath()%>/board/insertBoardForm.jsp">게시글
 			추가</a>
 	</div>
 
-
 	<!-- 페이징 -->
-
-	<a
-		href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1">처음</a>
 	<%
-	if (currentPage > 1) {//현재페이지가 1보다 클때 이전 표시
+	if (word == null||word.equals("")){ //검색 값이 없으면 그냥 페이지 보여주듯? 보여주고
 	%>
-	<a
-		href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage - 1%>">이전</a>
+		<a
+			href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1">처음</a>
+		<%
+			if (currentPage > 1) {//현재페이지가 1보다 클때 이전 표시
+		%>
+		<a
+			href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage - 1%>">이전</a>
+		<%
+			}
+		%>
+		<span><%=currentPage%></span>
+		<%
+			if (currentPage < lastPage) {//마지막 페이지보다 작을 때 다음 표시
+		%>
+		<a
+			href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage + 1%>">다음</a>
+		<%
+			}
+		%>
+	
+		<a
+			href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>">마지막</a>
 	<%
-	}
+	} else{//검색 값이 있으면 그 상태에서 페이지 수 보여줄거 //검색한 행의 마지막 페이지? word 넣으면 됨
 	%>
-	<span><%=currentPage%></span>
-	<%
-	if (currentPage < lastPage) {//마지막 페이지보다 작을 때 다음 표시
-	%>
-	<a
-		href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage + 1%>">다음</a>
-	<%
-	}
-	%>
-
-	<a
-		href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>">마지막</a>
-
+			<a
+					href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1&word=<%=word%>">처음</a>
+			<%
+				if(currentPage>1){
+			%>
+				<a href="<%=request.getContextPath()%>/board/boardLsit.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>">이전</a>
+			<%	
+				}
+			%>
+			<span><%=currentPage%></span>
+			<%
+				if(currentPage<lastPage){
+			%>
+				<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>%&word=<%=word%>">다음</a>		
+			<%
+				}
+			%>
+			<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>&word=<%=word%>">마지막</a> 
+		<%
+		}
+		%>
 </body>
 </html>
