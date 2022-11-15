@@ -79,6 +79,7 @@ while (empRs.next()) {
 <style type="text/css">
 table {
 	background-color: #DAD9FF;
+	text-align: center;
 }
 </style>
 <link

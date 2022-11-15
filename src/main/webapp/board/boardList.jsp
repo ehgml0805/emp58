@@ -121,7 +121,7 @@ while (listRs.next()) {
 	<form method="post"
 		action="<%=request.getContextPath()%>/board/boardList.jsp">
 		<label> 내용 검색: </label> <input type="text" name="word" id="word">
-		<button type="submit">검색</button>
+		<button type="submit"  class="btn btn-success d-grid">검색</button>
 	</form>
 	<div>
 		<a href="<%=request.getContextPath()%>/board/insertBoardForm.jsp">게시글

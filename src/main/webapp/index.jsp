@@ -29,6 +29,8 @@ h1 {
 			href="<%=request.getContextPath()%>/emp/empList.jsp">사원 관리</a></li>
 		<li class="nav-item"><a class="nav-link"
 			href="<%=request.getContextPath()%>/board/boardList.jsp">게시판 관리</a></li>
+		<li class="nav-item"><a class="nav-link"
+			href="<%=request.getContextPath()%>/salary/salaryMap.jsp">연봉 관리</a></li>
 
 	</ol>
 </body>

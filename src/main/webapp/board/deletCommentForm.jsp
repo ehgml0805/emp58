@@ -6,7 +6,7 @@ request.setCharacterEncoding("utf-8");
 int boardNo=Integer.parseInt(request.getParameter("boardNo"));
 System.out.println(request.getParameter("boardNo"));//디버깅
 
-String commentNo=request.getParameter("cemmentNo");
+String commentNo=request.getParameter("commentNo");
 System.out.println(request.getParameter("commentNo"));//디버깅
 
 String msg=request.getParameter("msg");

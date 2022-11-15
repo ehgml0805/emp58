@@ -8,6 +8,7 @@
 //분석
 request.setCharacterEncoding("utf-8");
 int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+System.out.println(request.getParameter("boardNo"));//디버깅
 int currentPage = 1;//페이지는 1번부터 시작할거
 if (request.getParameter("currentPage") != null) {
 	currentPage = Integer.parseInt(request.getParameter("currentPage"));

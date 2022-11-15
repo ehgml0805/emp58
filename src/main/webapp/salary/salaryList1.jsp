@@ -33,7 +33,7 @@
    ArrayList<Salary> salaryList = new ArrayList<>();
    while(rs.next()) {
       Salary s = new Salary();
-      s.emp = new Employee(); // 이거 안쓰면 안됨
+      s.emp = new Employee(); // salary에 employee 결합 이거 안쓰면 안됨
       s.emp.empNo = rs.getInt("empNo");
       s.salary = rs.getInt("salary");
       s.fromDate = rs.getString("fromDate");

@@ -5,11 +5,10 @@
 <%
 //분석
 request.setCharacterEncoding("utf-8");
-
 String boardNo=request.getParameter("boardNo");
-System.out.println(request.getParameter("boardNo"));
+System.out.println(request.getParameter("boardNo"));// 값을 못 받아와서 오류남 왜?
 String commentNo=request.getParameter("commentNo");
-System.out.println(request.getParameter("commentNo"));// 값을 못 받아와서 오류남 왜?
+System.out.println(request.getParameter("commentNo"));// 값을 못 받아와서 오류남 왜? 오타 났음
 String commentPw=request.getParameter("commentPw");
 System.out.println(request.getParameter("commentPw"));
 
