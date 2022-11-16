@@ -81,6 +81,12 @@ while (listRs.next()) {
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+<style type="text/css">
+body {
+	background-color:;
+	text-align: center;
+}
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -92,36 +98,31 @@ while (listRs.next()) {
 	<h1>자유게시판</h1>
 	<!-- 모델데이터 어레이리스트 -->
 	<table class="table table-bordered table-hover">
-		<thead class="table-success">
-			<tr>
-				<th>No.</th>
-				<th>제목</th>
-				<th>작성자</th>
-			</tr>
-		</thead>
-		<tbody>
-			<%
+		<tr class="table-success">
+			<th>No.</th>
+			<th>제목</th>
+			<th>작성자</th>
+		</tr>
+		<%
 			for (Board b : boardList) {
 			%>
-			<tr>
-				<td><%=b.boardNo%></td>
-				<td><a
-					href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=b.boardNo%>">
-						<%=b.boardTitle%>
-				</a></td>
-				<td><%=b.boardWriter%></td>
-			</tr>
-			<%
+		<tr>
+			<td><%=b.boardNo%></td>
+			<td><a
+				href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=b.boardNo%>">
+					<%=b.boardTitle%>
+			</a></td>
+			<td><%=b.boardWriter%></td>
+		</tr>
+		<%
 			}
 			%>
-		</tbody>
 	</table>
-
 	<!-- 내용 검색창 -->
-	<form method="post"
+	<form method="post"  style="text-align: center;"
 		action="<%=request.getContextPath()%>/board/boardList.jsp">
 		<label> 내용 검색: </label> <input type="text" name="word" id="word">
-		<button type="submit"  class="btn btn-success d-grid">검색</button>
+		<button type="submit" >검색</button>
 	</form>
 	<div>
 		<a href="<%=request.getContextPath()%>/board/insertBoardForm.jsp">게시글
@@ -132,50 +133,53 @@ while (listRs.next()) {
 	<%
 	if (word == null||word.equals("")){ //검색 값이 없으면 그냥 페이지 보여주듯? 보여주고
 	%>
-		<a
-			href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1">처음</a>
-		<%
+	<a
+		href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1">처음</a>
+	<%
 			if (currentPage > 1) {//현재페이지가 1보다 클때 이전 표시
 		%>
-		<a
-			href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage - 1%>">이전</a>
-		<%
+	<a
+		href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage - 1%>">이전</a>
+	<%
 			}
 		%>
-		<span><%=currentPage%></span>
-		<%
+	<span><%=currentPage%></span>
+	<%
 			if (currentPage < lastPage) {//마지막 페이지보다 작을 때 다음 표시
 		%>
-		<a
-			href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage + 1%>">다음</a>
-		<%
+	<a
+		href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage + 1%>">다음</a>
+	<%
 			}
 		%>
-	
-		<a
-			href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>">마지막</a>
+
+	<a
+		href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>">마지막</a>
 	<%
 	} else{//검색 값이 있으면 그 상태에서 페이지 수 보여줄거 //검색한 행의 마지막 페이지? word 넣으면 됨
 	%>
-			<a
-					href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1&word=<%=word%>">처음</a>
-			<%
+	<a
+		href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1&word=<%=word%>">처음</a>
+	<%
 				if(currentPage>1){
 			%>
-				<a href="<%=request.getContextPath()%>/board/boardLsit.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>">이전</a>
-			<%	
+	<a
+		href="<%=request.getContextPath()%>/board/boardLsit.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>">이전</a>
+	<%	
 				}
 			%>
-			<span><%=currentPage%></span>
-			<%
+	<span><%=currentPage%></span>
+	<%
 				if(currentPage<lastPage){
 			%>
-				<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>%&word=<%=word%>">다음</a>		
-			<%
+	<a
+		href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>%&word=<%=word%>">다음</a>
+	<%
 				}
 			%>
-			<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>&word=<%=word%>">마지막</a> 
-		<%
+	<a
+		href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>&word=<%=word%>">마지막</a>
+	<%
 		}
 		%>
 </body>

@@ -33,14 +33,20 @@
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+<style type="text/css">
+body {
+	background: ;
+	text-align: center;
+}
+</style>
 <meta charset="UTF-8">
-<title>UPDATE DEPT</title>
+<title>부서 수정</title>
 </head>
 <body>
-	<div>
+	<div style="text-align: center;">
 		<jsp:include page="/inc/menu.jsp"></jsp:include> <!-- =request.getContextPath() 인클루드 안에 안 적음 -->
 	</div>
-	<h2><p class="text-success">부서 수정</p></h2>
+	<h2 style="text-align: center;"><p class="text-primary">부서 수정</p></h2>
 	
 	
 	<form method="post" action="<%=request.getContextPath()%>/dept/updateDeptAction.jsp">
@@ -48,17 +54,17 @@
 			<tr>
 				<td>부서번호</td>
 				<td>
-					<input type="text" name="dept_no" value="<%=d.deptNo %>" readonly="readonly"><!--부서번호는 수정 불가  -->
+					<input type="text" class="form-control" name="dept_no" value="<%=d.deptNo %>" readonly="readonly"><!--부서번호는 수정 불가  -->
 				</td>
 			</tr>
 			<tr>
 				<td>부서이름</td>
 				<td>
-					<input type="text" name="dept_name" value="<%=d.deptName %>">
+					<input type="text" class="form-control" name="dept_name" value="<%=d.deptName %>">
 				</td>
 			</tr>
 		</table>
-		<button type="submit" class="btn btn-success">수정</button>
+		<button type="submit" class="btn btn-primary">수정</button>
 	</form>
 </body>
 </html>

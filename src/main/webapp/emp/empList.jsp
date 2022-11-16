@@ -76,17 +76,17 @@ while (empRs.next()) {
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-table {
-	background-color: #DAD9FF;
-	text-align: center;
-}
-</style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+<style type="text/css">
+body {
+	background: #DAD9FF;
+	text-align: center;
+}
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -96,18 +96,18 @@ table {
 		<!-- =request.getContextPath() 인클루드 안에 안 적음 -->
 	</div>
 
-	<h1 style="text-align: center">사원목록</h1>
+	<h1 style="text-align: center">사원 목록</h1>
 	<!-- 부서별 사원 목록 출력 되도록 -->
 
 	<div style="text-align: center">
-		현재 페이지:<%=currentPage%></div>
+		현재 페이지:&nbsp; <%=currentPage%></div>
 	<form action="<%=request.getContextPath()%>/emp/empList.jsp"
 		method="post">
 		<label>사원 검색:&nbsp; </label> <input type="text" name="word" id="word">
 		<button type="submit">검색</button>
 	</form>
 
-	<table class="table table-bordered table-hover">
+	<table class="table table-bordered table-hover" style="color: black;">
 		<tr>
 			<th>사원번호</th>
 			<th>퍼스트 네임</th>
@@ -128,52 +128,46 @@ table {
 	<%
 	if (word == null||word.equals("")){ //검색 값이 없으면 그냥 페이지 보여주듯? 보여주고
 	%>
-	
 		<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1">처음</a>
 		<%
-			if (currentPage > 1) {//currentPage가 1페이지보다 클 때만 이전 띄움
+		if (currentPage > 1) {//currentPage가 1페이지보다 클 때만 이전 띄움
 		%>
-				<a
-					href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage - 1%>">이전</a>
+		<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage - 1%>">이전</a>
 		<%
-				}
-			
-			if (currentPage < lastPage) {
-		%>
-				<a
-					href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage + 1%>">다음</a>
-		<%
-				}
-		%>
-			<a
-				href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>">마지막</a>
-	<%
-	}else{ //검색 값이 있는거 페이지
-	%>
-		<a
-			href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1&word=<%=word%>">처음</a>
-		<%
-				if(currentPage>1){
-		%>
-				<a
-					href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage - 1%>&word=<%=word%>">이전</a>
-		<%
-				}
+			}
 		%>
 		<span><%=currentPage%></span>
 		<%
-				if(currentPage<lastPage){
+		if (currentPage < lastPage) {
 		%>
-				<a
-				href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage + 1%>&word=<%=word%>">다음</a>
-		<%		
-				}
-		%>
-				<a
-				href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>&word=<%=word%>">마지막</a>
+			<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage + 1%>">다음</a>
 		<%
-			} 
+			}
 		%>
+		<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>">마지막</a>
+	<%
+	}else{ //검색 값이 있는거 페이지
+	%>
+		<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1&word=<%=word%>">처음</a>
+		<%
+		if(currentPage>1){
+		%>
+			<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage - 1%>&word=<%=word%>">이전</a>
+		<%
+		}
+		%>
+		<span><%=currentPage%></span>
+		<%
+		if(currentPage<lastPage){
+		%>
+			<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage + 1%>&word=<%=word%>">다음</a>
+		<%
+		}
+		%>
+		<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>&word=<%=word%>">마지막</a>
+	<%
+	} 
+	%>
 
 </body>
 </html>

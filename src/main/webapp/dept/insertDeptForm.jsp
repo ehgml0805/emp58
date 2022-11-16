@@ -4,14 +4,20 @@
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+<style type="text/css">
+body {
+	background: ;
+	text-align: center;
+}
+</style>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>부서 추가</title>
 </head>
 <body>
-	<div>
+	<div style="text-align: center;">
 		<jsp:include page="/inc/menu.jsp"></jsp:include> <!-- =request.getContextPath() 인클루드 안에 안 적음 -->
 	</div>
-	<h2> <p class="text-success">부서 추가</p></h2>
+	<h2 style="text-align: center;"> <p class="text-primary">부서 추가</p></h2>
 	
 	<!-- msg 파라미터값이 있으면 출력 -->
 	<%
@@ -26,18 +32,18 @@
 			<tr>
 				<td>부서번호</td>
 				<td>
-					<input type="text" name="dept_no">
+					<input type="text" class="form-control" name="dept_no">
 				</td>
 			</tr>
 			<tr>
 				<td>부서이름</td>
 				<td>
-					<input type="text" name="dept_name">
+					<input type="text" class="form-control" name="dept_name">
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button type="submit" class="btn btn-success">추가</button>
+					<button type="submit" class="btn btn-primary">추가</button>
 				</td>
 			</tr>
 		</table>

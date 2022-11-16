@@ -50,41 +50,42 @@ while (rs.next()) { //ResultSet의 API(사용방법)를 모른다면 사용할 �
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+<style type="text/css">
+body {
+	background-color:;
+	text-align: center;
+}
+</style>
 <meta charset="UTF-8">
-<title>DEPT LIST</title>
+<title>부서 목록</title>
 </head>
 <body>
-	<div>
+	<div style="text-align: center;">
 		<jsp:include page="/inc/menu.jsp"></jsp:include>
 		<!-- =request.getContextPath() 인클루드 안에 안 적음 -->
 	</div>
 	<div>
-		<h1>부서 목록</h1>
+		<h1 style="text-align: center;">부서 관리</h1>
 	</div>
-	<div>
-		<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp">부서추가</a>
-	</div>
-
 	<!-- 부서명 검색창 -->
-	<form method="post"
+	<form method="post" style="text-align: center;"
 		action="<%=request.getContextPath()%>/dept/deptList.jsp">
 		<label for="">부서이름 검색: </label> <input type="text" name="word"
 			id="word">
-		<button type="submit">검색</button>
+		<button type="submit" class="btn btn-primary">검색</button>
 	</form>
-
+	<div>
+		<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp">부서 추가</a>
+	</div>
 	<div>
 		<!-- 부서목록 출력 내림차순으로 -->
 		<table class="table table-bordered">
-			<thead class="table-primary">
-				<tr>
+				<tr class="table-primary">
 					<th>부서번호</th>
 					<th>부서이름</th>
 					<th>수정</th>
 					<th>삭제</th>
 				</tr>
-			</thead>
-			<tbody>
 				<%
 				for (Department d : list) {//일반적인 자바 문법에서 제공하는 foreach문
 				%>
@@ -100,7 +101,6 @@ while (rs.next()) { //ResultSet의 API(사용방법)를 모른다면 사용할 �
 					}
 					%>
 				</tr>
-			</tbody>
 		</table>
 	</div>
 </body>

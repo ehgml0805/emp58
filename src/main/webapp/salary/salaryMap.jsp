@@ -82,18 +82,17 @@ conn.close();//커넥션 끊는거 중간에 쓰면 오류 남! 맨 밑에 써�
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-table {
-	background-color:;
-	text-align: center;
-}
-</style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-
+<style type="text/css">
+body {
+	background-color:;
+	text-align: center;
+}
+</style>
 <meta charset="UTF-8">
 <title>연봉 관리</title>
 </head>
@@ -108,8 +107,8 @@ table {
 		<label>사원 검색: </label> <input type="text" name="word" id="word">
 		<button type="submit">검색</button>
 	</form>
-	<table class="table table-bordered table-hover">
-		<tr>
+	<table class="table table-bordered table-hover ">
+		<tr class="table-success">
 			<th>사원 번호</th>
 			<th>사원 이름</th>
 			<th>연봉</th>

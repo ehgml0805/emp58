@@ -83,33 +83,33 @@ conn.close();
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-table {
-	background-color:;
-	text-align: center;
-}
-</style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+<style type="text/css">
+body {
+	background-color:;
+	text-align: center;
+}
+</style>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>부서별 사원 관리</title>
 </head>
 <body>
 	<div style="text-align: center;">
 		<jsp:include page="/inc/menu.jsp"></jsp:include>
 		<!-- =request.getContextPath() 인클루드 안에 안 적음 -->
 	</div>
-	<h1 style="text-align: center">사원별 부서 관리</h1>
+	<h1 style="text-align: center">부서별 사원 관리</h1>
 	<!-- 사원 검색 -->
 	<form action="<%=request.getContextPath()%>/deptEmp/deptEmpListMap.jsp">
 		<label>사원 검색: </label><input type="text" name="word" id="word">
 		<button type="submit">검색</button>
 	</form>
 	<table class="table table-bordered table-hover">
-		<tr>
+		<tr class="table-success">
 			<th>사원 번호</th>
 			<th>사원 이름</th>
 			<th>부서명</th>
