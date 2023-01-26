@@ -18,7 +18,7 @@ if (request.getParameter("currentPage") != null) {
 //2 처리 후 필요하다면 모델데이터를 생성
 Class.forName("org.mariadb.jdbc.Driver");
 Connection conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/employees", "root", "java1234");
-System.out.println(conn + "<--conn");
+//System.out.println(conn + "<--conn");
 
 //페이징 하기
 final int ROW_PER_PAGE = 10;//final을 붙이면 나중에 rowPerPage 변경 불가.. 10개씩 출력할 것
@@ -26,15 +26,17 @@ int beginRow = (currentPage - 1) * ROW_PER_PAGE;//몇번부터 뽑을거냐?..  
 
 String cntSql = null;
 PreparedStatement cntStmt = null;
-if (word == null) { //word 값이 없거나 공백이거나 하면 행 전체를 보여주고
-	cntSql = "SELECT COUNT(*) cnt FROM board; ";
+if (word == null || word.equals("")) { //word 값이 없거나 공백이거나 하면 행 전체를 보여주고
+	cntSql = "SELECT COUNT(*) cnt FROM board;";
 	cntStmt = conn.prepareStatement(cntSql);
+	//System.out.println(cntStmt+"<==cntStmt");
 } else {
 	cntSql = "SELECT COUNT(*) cnt FROM board WHERE board_title LIKE ?;";
 	cntStmt = conn.prepareStatement(cntSql);
 	cntStmt.setString(1, "%" + word + "%");
 }
 ResultSet cntRs = cntStmt.executeQuery();
+//System.out.println(cntRs+"<==cntRs");
 
 int cnt = 0;//전체 행의 개수
 if (cntRs.next()) {
